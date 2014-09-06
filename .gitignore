@@ -52,3 +52,10 @@ coverage.xml
 # Sphinx documentation
 docs/_build/
 
+
+# Mac OS
+.DS_Store
+
+# Vim temp files
+*~
+*.sw?
