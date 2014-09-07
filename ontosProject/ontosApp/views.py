@@ -4,13 +4,19 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, render
 from django.shortcuts import redirect
 
-EN_CONSUMER_KEY = 'asingh12'
-EN_CONSUMER_SECRET = 'b2a9213e33d06b39'
+import evernote.edam.type.ttypes as Types
+import evernote.edam.notestore.ttypes as NoteStoreTypes
+import evernote.edam.notestore.NoteStore as NoteStore
+from evernote.edam.notestore.ttypes import NotesMetadataResultSpec
+
+#EN_CONSUMER_KEY = 'asingh12'
+#EN_CONSUMER_SECRET = 'b2a9213e33d06b39'
+developer_token = "S=s449:U=4d6b8f4:E=14fa58da294:C=1484ddc7698:P=1cd:A=en-devtoken:V=2:H=59bf20b736135b1ac3618c9d4d7f59d8"
 
 
 def get_evernote_client(token=None):
     if token:
-        return EvernoteClient(token=token, sandbox=True)
+        return EvernoteClient(token=token, sandbox=False)
     else:
         return EvernoteClient(
             consumer_key=EN_CONSUMER_KEY,
@@ -47,7 +53,7 @@ def submitToAuth(request):
 
 # submission to evernote for authentication
 def auth(request):
-    client = get_evernote_client()
+    client = get_evernote_client(token=developer_token)
     callbackUrl = 'http://%s%s' % (
         request.get_host(), reverse('evernote_callback'))
     request_token = client.get_request_token(callbackUrl)
@@ -64,12 +70,12 @@ def auth(request):
 # dashboard page of our website
 def dashboard(request):
     try:
-        client = get_evernote_client()
-        client.get_access_token(
+        client = get_evernote_client(token=developer_token)
+        """client.get_access_token(
             request.session['oauth_token'],
             request.session['oauth_token_secret'],
             request.GET.get('oauth_verifier', '')
-        )
+        )"""
     except KeyError:
         return redirect('/')
 
@@ -81,12 +87,15 @@ def dashboard(request):
         notebook_filter = NoteStoreTypes.NoteFilter()
         notebook_filter.guid = currGuid
         result_spec = NotesMetadataResultSpec(includeTitle=True)
-        noteList = note_store.findNotesMetadata(evernote_auth_token, notebook_filter,0 , 40000, result_spec)
-        for note in noteList.notes:
-            content = note.content  # "The XHTML block that makes up the note"
+        noteList = note_store.findNotesMetadata(developer_token, notebook_filter,0 , 40000, result_spec)
+        for noteMetaData in noteList.notes:
+            note = note_store.getNote(developer_token, noteMetaData.guid, True, True, True, True)
+            currContent = note.content  # "The XHTML block that makes up the note"
             # gets all contents from all notes
-            print content
-            return
+
+            #print currContent
+
+            #return
             """ NLKT processing here!! """
 
 

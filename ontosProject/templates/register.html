@@ -1,8 +1,10 @@
 <!DOCTYPE html>
+{% load staticfiles %}
+
 <html>
   <head>
-    <link rel = "stylesheet" href = "../../static/css/bootstrap.css">
-    <link rel= "stylesheet" href="main.css">
+    <link rel = "stylesheet" href="{% static "css/bootstrap.css" %}">
+    <link rel= "stylesheet" href="{% static "main.css" %}">
   </head>
   <body>
 
@@ -17,11 +19,11 @@
       </div>
       <div class="navbar-collapse collapse navbar-inverse-collapse">
         <ul class="nav navbar-nav navbar-left">
-          <li><a href="main.html">Home</a></li>
+          <li><a href="/">Home</a></li>
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="register.html">Register</a></li>
-          <li><a href="login.html">Sign In</a></li>
+          <li><a href="/register">Register</a></li>
+          <li><a href="/login">Sign In</a></li>
           <li><a href="#">Contact Us</a></li>
         </ul>
       </div>
