@@ -9,6 +9,8 @@ import evernote.edam.notestore.ttypes as NoteStoreTypes
 import evernote.edam.notestore.NoteStore as NoteStore
 from evernote.edam.notestore.ttypes import NotesMetadataResultSpec
 
+from textMining import *
+
 #EN_CONSUMER_KEY = 'asingh12'
 #EN_CONSUMER_SECRET = 'b2a9213e33d06b39'
 developer_token = "S=s449:U=4d6b8f4:E=14fa58da294:C=1484ddc7698:P=1cd:A=en-devtoken:V=2:H=59bf20b736135b1ac3618c9d4d7f59d8"
@@ -93,7 +95,7 @@ def dashboard(request):
             currContent = note.content  # "The XHTML block that makes up the note"
             # gets all contents from all notes
 
-            #print currContent
+            top5countries
 
             #return
             """ NLKT processing here!! """

@@ -40,7 +40,6 @@ def genTop5Sports(xhtml):
 
 
 if __name__ == "__main__":
-
 	enml = "<div>Hickory, football, swimming, dock</div>  <div>The soccer soccer tennis soccer clock.</div>  <div>The cricket struck one,</div>  <div>The rugby rugby down,</div>  <div>Hickory, dickory, dock.</div>  <div><br /></div>  <div>-- Author unknown</div>"
 	a = top5(genTop5Sports(enml))
 	print(a)
