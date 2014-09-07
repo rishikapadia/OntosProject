@@ -4,8 +4,8 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render_to_response, render
 from django.shortcuts import redirect
 
-EN_CONSUMER_KEY = 'your consumer key'
-EN_CONSUMER_SECRET = 'your consumer secret'
+EN_CONSUMER_KEY = 'asingh12'
+EN_CONSUMER_SECRET = 'b2a9213e33d06b39'
 
 
 def get_evernote_client(token=None):
@@ -79,9 +79,9 @@ def dashboard(request):
     for notebook in notebooks:
         currGuid = notebook.guid
         notebook_filter = NoteStoreTypes.NoteFilter()
-		notebook_filter.guid = currGuid
+        notebook_filter.guid = currGuid
         result_spec = NotesMetadataResultSpec(includeTitle=True)
-		noteList = note_store.findNotesMetadata(evernote_auth_token, notebook_filter,0 , 40000, result_spec)
+        noteList = note_store.findNotesMetadata(evernote_auth_token, notebook_filter,0 , 40000, result_spec)
         for note in noteList.notes:
             content = note.content  # "The XHTML block that makes up the note"
             # gets all contents from all notes
