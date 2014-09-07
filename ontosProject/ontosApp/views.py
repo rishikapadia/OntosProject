@@ -37,7 +37,7 @@ def register(request):
 # called after register form is submitted
 def registerHelper(request):
     #store new User model in db
-    submitToAuth(reuqest)
+    submitToAuth(request)
 
 # called after login and register
 def submitToAuth(request):

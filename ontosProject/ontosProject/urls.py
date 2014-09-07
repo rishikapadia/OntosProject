@@ -9,7 +9,7 @@ urlpatterns = patterns('',
     url(r"^$", views.main, name="evernote_index"),
     url(r"^login/$", views.login, name="evernote_auth"),
     url(r"^dashboard/$", views.dashboard, name="evernote_callback"),
-	url(r"^register/$", "register", name="register"),
+	url(r"^register/$", views.register, name="register"),
 
     url(r'^admin/', include(admin.site.urls)),
 
