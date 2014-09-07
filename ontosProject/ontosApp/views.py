@@ -23,12 +23,12 @@ from textMining import *
 
 #EN_CONSUMER_KEY = 'asingh12'
 #EN_CONSUMER_SECRET = 'b2a9213e33d06b39'
-developer_token = "S=s449:U=4d6b8f4:E=14fa58da294:C=1484ddc7698:P=1cd:A=en-devtoken:V=2:H=59bf20b736135b1ac3618c9d4d7f59d8"
+developer_token = "S=s1:U=8f575:E=14fa60a5d52:C=1484e593048:P=1cd:A=en-devtoken:V=2:H=a265008d608004c2e80ad0670a88e067"
 
 
 def get_evernote_client(token=None):
     if token:
-        return EvernoteClient(token=token, sandbox=False)
+        return EvernoteClient(token=token, sandbox=True)
     else:
         return EvernoteClient(
             consumer_key=EN_CONSUMER_KEY,
@@ -101,14 +101,20 @@ def dashboard(request):
         result_spec = NotesMetadataResultSpec(includeTitle=True)
         noteList = note_store.findNotesMetadata(developer_token, notebook_filter,0 , 40000, result_spec)
         tokens = []
+        print len(noteList.notes)
+        i = 0
         for noteMetaData in noteList.notes:
+            i+=1
+            if i > 11:
+                break
+            print(noteMetaData.title)
             note = note_store.getNote(developer_token, noteMetaData.guid, True, True, True, True)
             currContent = note.content  # "The XHTML block that makes up the note"
             # gets all contents from all notes
             tokens = tokens + accumTokens(currContent)
 
         countryData = getCountryDist(tokens)
-        sportsData = getSportsDist(tokens)
+        cs = range(len(countryData))
 
-    return render_to_response('dashboard.html', {'notebooks': notebooks, 'sportsData':sportsData, 'countryData':countryData})
+    return render_to_response('dashboard.html', {'notebooks': notebooks, 'countryData':countryData, 'cs':cs})
 
