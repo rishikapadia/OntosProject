@@ -10,7 +10,7 @@ import evernote.edam.notestore.NoteStore as NoteStore
 from evernote.edam.notestore.ttypes import NotesMetadataResultSpec
 
 import nltk
-import numpy 
+import numpy
 
 from bs4 import BeautifulSoup
 from nltk import word_tokenize
