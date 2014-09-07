@@ -9,6 +9,16 @@ import evernote.edam.notestore.ttypes as NoteStoreTypes
 import evernote.edam.notestore.NoteStore as NoteStore
 from evernote.edam.notestore.ttypes import NotesMetadataResultSpec
 
+import nltk
+import numpy 
+
+from bs4 import BeautifulSoup
+from nltk import word_tokenize
+from nltk.probability import FreqDist
+
+COUNTRIES = ['launiupoko','maui', 'cyprus', 'france', 'cabo', 'turkey', 'morocco', 'america']
+SPORTS = ['football', 'baseball', 'soccer', 'tennis', 'rugby', 'basketball', 'cricket', 'swimming']
+
 from textMining import *
 
 #EN_CONSUMER_KEY = 'asingh12'
@@ -90,16 +100,15 @@ def dashboard(request):
         notebook_filter.guid = currGuid
         result_spec = NotesMetadataResultSpec(includeTitle=True)
         noteList = note_store.findNotesMetadata(developer_token, notebook_filter,0 , 40000, result_spec)
+        tokens = []
         for noteMetaData in noteList.notes:
             note = note_store.getNote(developer_token, noteMetaData.guid, True, True, True, True)
             currContent = note.content  # "The XHTML block that makes up the note"
             # gets all contents from all notes
+            tokens = tokens + accumTokens(currContent)
 
-            top5countries
+        countryData = getCountryDist(tokens)
+        sportsData = getSportsDist(tokens)
 
-            #return
-            """ NLKT processing here!! """
-
-
-    return render_to_response('dashboard.html', {'notebooks': notebooks})
+    return render_to_response('dashboard.html', {'notebooks': notebooks, 'sportsData':sportsData, 'countryData':countryData})
 

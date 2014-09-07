@@ -16,32 +16,31 @@ def top5(myList):
 
 
 
-def genTop5Countries(xhtml):
+def accumTokens(xhtml):
 	soup = BeautifulSoup(xhtml)
 	raw = soup.get_text()
 	tokens = word_tokenize(raw)
+	return tokens
+
+def getCountryDist(tokens):
 	text = nltk.Text(tokens)
 	countries = [w for w in text if (w.lower() in COUNTRIES)]
 	fDist = FreqDist(countries)
 	dictionary = fDist.items()
-	return dictionary
+	return top5(dictionary)
 
-
-
-def genTop5Sports(xhtml):
-	soup = BeautifulSoup(xhtml)
-	raw = soup.get_text()
-	tokens = word_tokenize(raw)
+def getSportsDist(tokens):
 	text = nltk.Text(tokens)
 	sports = [w for w in text if (w.lower() in SPORTS)]
 	fDist = FreqDist(sports)
 	dictionary = fDist.items()
-	return dictionary 
+	return top5(dictionary)
 
 
 if __name__ == "__main__":
 	enml = "<div>Hickory, football, swimming, dock</div>  <div>The soccer soccer tennis soccer clock.</div>  <div>The cricket struck one,</div>  <div>The rugby rugby down,</div>  <div>Hickory, dickory, dock.</div>  <div><br /></div>  <div>-- Author unknown</div>"
-	a = top5(genTop5Sports(enml))
+	tokens = accumTokens(enml)
+	a = getSportsDist(tokens)
 	print(a)
 
 
