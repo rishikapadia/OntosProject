@@ -85,7 +85,8 @@ def dashboard(request):
         for note in noteList.notes:
             content = note.content  # "The XHTML block that makes up the note"
             # gets all contents from all notes
-
+            print content
+            return
             """ NLKT processing here!! """
 
 
